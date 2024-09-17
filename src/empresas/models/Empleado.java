@@ -1,11 +1,14 @@
 package empresas.models;
 
+import java.util.HashMap;
+
 public class Empleado {
     private String documento;
     private String nombreEmp;
     private int horasTrab;
     private double valorHora;
     private double sueldo;
+    private HashMap<String,Direccion> listaDirecciones;
 
     public Empleado() {
         this.documento = "";
@@ -22,6 +25,7 @@ public class Empleado {
         this.horasTrab = horasTrab;
         this.valorHora = valorHora;
         this.sueldo = sueldo;
+        this.listaDirecciones = new HashMap<>();
     }
 
     public void setSueldo(double sueldo) {

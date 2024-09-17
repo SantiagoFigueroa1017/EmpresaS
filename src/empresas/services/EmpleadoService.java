@@ -14,6 +14,7 @@ public class EmpleadoService {
     public EmpleadoService() {
         sc = new Scanner(System.in);
         listaEmpleados = new ArrayList<>();
+
     }
 
 
@@ -44,6 +45,7 @@ public class EmpleadoService {
                     break;
                 case 5:
                     eliminarEmpleado();
+                    break;
                 default:
                     opcion = 0;
                     System.out.println("Gracias por usar este menu");
