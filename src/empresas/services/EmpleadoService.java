@@ -1,20 +1,24 @@
 package empresas.services;
 
+import empresas.models.Direccion;
 import empresas.models.Empleado;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class EmpleadoService {
 
     private Scanner sc;
     private Empleado empleado;
-    private ArrayList<Empleado> listaEmpleados;
+    private HashMap<String, Empleado> listaEmpleados;
+    private DireccionService direccionService;
+    private Direccion direccion;
 
     public EmpleadoService() {
         sc = new Scanner(System.in);
-        listaEmpleados = new ArrayList<>();
-
+        listaEmpleados = new HashMap<>();
+        direccionService = new DireccionService();
     }
 
 
@@ -73,14 +77,17 @@ public class EmpleadoService {
         System.out.println("Ingrese el valor de la hora");
         double valor = sc.nextDouble();
 
-        listaEmpleados.add(new Empleado(documento, nombre, horas, valor, calcularSueldo(horas, valor)));
+        direccion = direccionService.crear();
+
+
+        listaEmpleados.put(documento, new Empleado(documento, nombre, horas, valor, calcularSueldo(horas, valor), direccion));
 
     }
 
     private void modificarEmpleado() {
-        int posicion = buscarEmpleado();
-        if (posicion >= 0) {
-            empleado = listaEmpleados.get(posicion);
+        empleado = buscarEmpleado();
+
+        if(empleado != null){
             System.out.println("::MODIFICAR EMPLEADO::");
 
             System.out.println("Ingrese el nombre del empleado");
@@ -96,30 +103,27 @@ public class EmpleadoService {
             empleado.setValorHora(valor);
 
             empleado.setSueldo(calcularSueldo(horas, valor));
-            listaEmpleados.set(posicion, empleado);
+            listaEmpleados.put(empleado.getDocumento(), empleado);
+        }else {
+            System.out.println("No se encontró el empleado buscado");
         }
+
 
     }
 
-    private int buscarEmpleado() {
+    private Empleado buscarEmpleado() {
         System.out.println("::Buscar empleado::");
         System.out.println("Ingrese el numero de documento del empleado");
         String documento = sc.next();
-        empleado = null;
-        for (Empleado empleadoEncontrado : listaEmpleados) {
-            if (empleadoEncontrado.getDocumento().equals(documento)) {
-                empleado = empleadoEncontrado;
-                imprimirEmpleado(empleado);
-                break;
-            }
-        }
 
-        return listaEmpleados.indexOf(empleado);
+
+        return listaEmpleados.get(documento);
     }
 
     private void listarEmpleados() {
         System.out.println("::Listar empleados::");
-        for (Empleado empleado : listaEmpleados) {
+        for (String documento : listaEmpleados.keySet()) {
+            Empleado empleado = listaEmpleados.get(documento);
             imprimirEmpleado(empleado);
         }
     }
@@ -130,12 +134,13 @@ public class EmpleadoService {
 
     private void imprimirEmpleado(Empleado empleado) {
         System.out.println(empleado.getDocumento() + " | " + empleado.getNombre() + " | "
-                + empleado.getSueldo());
+                + empleado.getSueldo() + " | " + empleado.getDireccion());
 
     }
 
     private boolean documentoExistente(String documento) {
-        for (Empleado empleado : listaEmpleados) {
+        for (String clave : listaEmpleados.keySet()) {
+            Empleado empleado = listaEmpleados.get(clave);
             if (empleado != null && empleado.getDocumento().equals(documento)) {
                 System.out.println("El documento ya existe, Ingrese un documento diferente");
                 return true;
@@ -145,12 +150,16 @@ public class EmpleadoService {
 
     }
 
-    private void eliminarEmpleado(){
+    private void eliminarEmpleado() {
+
         System.out.println("Buscar Empleado a eliminar");
-        int posicion = buscarEmpleado();
-        if(posicion >= 0){
-            listaEmpleados.remove(posicion);
+        empleado = buscarEmpleado();
+
+        if (empleado != null) {
+            listaEmpleados.remove(empleado.getDocumento());
             System.out.println("El empleado ha sido eliminado");
+        }else {
+            System.out.println("::El empleado no existe::");
         }
     }
 

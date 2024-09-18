@@ -37,9 +37,4 @@ public class DireccionService {
         return direccion;
     }
 
-
-//    public String visualizar(){
-//
-//    }
-
 }

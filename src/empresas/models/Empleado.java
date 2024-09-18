@@ -8,53 +8,56 @@ public class Empleado {
     private int horasTrab;
     private double valorHora;
     private double sueldo;
-    private HashMap<String,Direccion> listaDirecciones;
+    private Direccion direccion;
 
     public Empleado() {
         this.documento = "";
         this.nombreEmp = "No definido";
-        this.horasTrab= 0;
+        this.horasTrab = 0;
         this.valorHora = 0.0;
-        this.sueldo= 0.0;
+        this.sueldo = 0.0;
     }
 
-    public Empleado(String documento, String nombreEmp, int horasTrab, 
-            double valorHora, double sueldo) {
+    public Empleado(String documento, String nombreEmp, int horasTrab,
+                    double valorHora, double sueldo, Direccion direccion) {
         this.documento = documento;
         this.nombreEmp = nombreEmp;
         this.horasTrab = horasTrab;
         this.valorHora = valorHora;
         this.sueldo = sueldo;
-        this.listaDirecciones = new HashMap<>();
+        this.direccion = direccion;
     }
 
     public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
     }
 
-    public void setNombre(String nombre){
+    public void setNombre(String nombre) {
         this.nombreEmp = nombre;
     }
-    
-    public void setHorasTrab(int horas){
+
+    public void setHorasTrab(int horas) {
         this.horasTrab = horas;
     }
-    
-    public void setValorHora(double valor){
+
+    public void setValorHora(double valor) {
         this.valorHora = valor;
     }
-    
-    
-    public String getNombre(){
+
+
+    public String getNombre() {
         return this.nombreEmp;
     }
-    
-    public double getSueldo (){
+
+    public double getSueldo() {
         return this.sueldo;
     }
 
     public String getDocumento() {
         return documento;
     }
-    
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
 }

@@ -10,8 +10,7 @@ public class EmpresaS {
         EmpleadoService service = new EmpleadoService();
         service.menu();
 
-        DireccionService direccion = new DireccionService();
-        direccion.crear();
+
     }
     
 }
