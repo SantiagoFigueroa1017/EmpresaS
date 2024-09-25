@@ -60,4 +60,16 @@ public class Empleado {
     public Direccion getDireccion() {
         return direccion;
     }
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "documento='" + documento + '\'' +
+                ", nombreEmp='" + nombreEmp + '\'' +
+                ", horasTrab=" + horasTrab +
+                ", valorHora=" + valorHora +
+                ", sueldo=" + sueldo +
+                ", direccion=" + direccion +
+                '}';
+    }
 }
