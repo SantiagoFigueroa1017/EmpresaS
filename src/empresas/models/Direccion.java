@@ -1,6 +1,6 @@
 package empresas.models;
 
-public class Direccion {
+public class    Direccion {
 
     private String calle;
     private String numeroCasa;
